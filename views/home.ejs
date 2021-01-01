@@ -1,0 +1,31 @@
+<%- include("header") -%>
+    <div class="container">
+        <div class="triangular-border"></div>
+        <div class="row mt-5 pt-5">
+            <div class="col-sm-4 m-auto">
+                <h1 class="title text-light"><%= title %></h1>
+                <ul class="list-group">
+                    <% if(typeof items != "undefined") { %>
+                    <% items.forEach(item => { %>
+                        <li class="list-group-item list-group-item-secondary item-list"> <%=item.item%> 
+                            <div class="d-inline float-right">
+                                <a href="/edit/<%= item._id %>/<%= title %>" ><i class="far fa-edit" title="edit"></i></a>
+                                <a href="/delete/<%= item._id %>/<%= title %>" ><i class="far fa-trash-alt text-danger" title="delete"></i></a>
+                            </div>
+                        </li>
+                    <% }) %>  
+                    <% } %>
+                </ul>
+                <form action="/" method="post" class="todo-frm mt-2">
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="todoItem" placeholder="Start adding your list!" autocomplete="off" value="<%= (typeof item != 'undefined') ? item : '' %>">
+                        <input type="hidden" name="hidden" value="<%= (typeof id != 'undefined') ? id : '' %>">
+                    </div>
+                    <button type="submit" class="btn btn-secondary btn-sm rounded-circle btn-pos" name="todoBtn" value="<%= title %>">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+<%- include("footer") -%>
