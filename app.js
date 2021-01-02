@@ -9,7 +9,7 @@ app.set("view engine", "ejs");
 app.use(express.static("public"));
 app.use(express.urlencoded({extended: true}));
 
-mongoose.connect("mongodb://localhost:27017/todoDB", {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false });
+mongoose.connect("mongodb+srv://admin_rahul:admin@123$@cluster0.zujx9.mongodb.net/todoDB", {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false });
 
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
@@ -52,7 +52,6 @@ app.get("/edit/:id/:title", (req, res) => {
             if(err)
                 console.log(err);
             else {
-                console.log(todayItem);
                 res.render("home", {title: "Today", item: todayItem.item, id: id});
             }
         });
@@ -169,4 +168,8 @@ app.post("/", (req, res) => {
     
 });
 
-app.listen(3000, () => console.log("server started at port 3000"));
+let port = process.env.PORT;
+if (port == null || port == "") {
+  port = 3000;
+}
+app.listen(port);
