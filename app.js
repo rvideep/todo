@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require("express");
 const ejs = require("ejs");
 const mongoose = require("mongoose");
@@ -9,7 +10,11 @@ app.set("view engine", "ejs");
 app.use(express.static("public"));
 app.use(express.urlencoded({extended: true}));
 
-mongoose.connect("mongodb+srv://admin_rahul:admin@123$@cluster0.zujx9.mongodb.net/todoDB", {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false });
+const username = process.env.USER;
+const password = process.env.PASSWORD;
+
+const url = "mongodb+srv://"+username+":"+password+"@cluster0.zujx9.mongodb.net/todoDB";
+mongoose.connect(url, {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false });
 
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
